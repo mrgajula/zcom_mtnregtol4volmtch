@@ -1,0 +1,62 @@
+name: cap-devops
+resources:
+  containers:
+    - container: cfcli
+      image: "ppiper/cf-cli"
+      options: --user 0:0 --privileged
+  repositories:
+    - repository: snyk
+      type: git
+      ref: main
+      name: jdc\jdc-snyk
+variables:
+- group: CFDeploy
+- group: Snyk
+trigger:
+  - main
+stages:
+  - stage: Build
+    displayName: Build MTA for SAP BTP
+    jobs:
+      - job: build
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - task: Npm@1
+            displayName: NPM Install
+            inputs:
+              command: 'install'
+              workingDir: '$(Build.SourcesDirectory)'
+          - task: Npm@1
+            displayName: Lint check
+            inputs:
+              command: 'custom'
+              workingDir: '$(Build.SourcesDirectory)'
+              customCommand: 'run lint'
+          - task: Npm@1
+            displayName: Snyk security scan
+            inputs:
+              command: 'custom'
+              workingDir: '$(Build.SourcesDirectory)'
+              customCommand: 'run build'
+          - task: Npm@1
+            displayName: Generating mtar file for deployment
+            inputs:
+                command: 'custom'
+                workingDir: '$(Build.SourcesDirectory)' 
+                customCommand: 'run build:mta'
+          - template: configs/new-PR-comment.yml@snyk 
+          - publish: $(System.DefaultWorkingDirectory)/mta_archives/.
+            artifact: WebApp
+            displayName: "Publish archive folder"
+  - stage: Upload
+    displayName: Upload to TMS queue
+    dependsOn:
+      - Build
+    variables:
+      - group: CFDeploy
+    jobs:
+      - template: templates/uploadToCtms.yml
+        parameters:
+          runJob: true
+          ctmsNode: CAP_QAS
