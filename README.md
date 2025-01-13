@@ -7,7 +7,7 @@
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://jdc-inc-dev-appdev-zcom-mstrsrv-srv.cfapps.us10.hana.ondemand.com/service/RegulationComplianceMasterService|
+|**Service URL**<br>https://jdc-group-inc-dev-appdev-zcom-mstrsrv-srv.cfapps.us10.hana.ondemand.com/service/RegulationComplianceMasterService|
 |**Module Name**<br>zfemtnregtol4volmtch|
 |**Application Title**<br>Maintain Auto-Match Quantity Tolerance|
 |**Namespace**<br>|

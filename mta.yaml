@@ -24,12 +24,12 @@ modules:
         - Name: zfemtnregtol4volmtch_html_repo_host
           ServiceInstanceName: zfemtnregtol4volmtch-html5-srv
           ServiceKeyName: zfemtnregtol4volmtch-repo-host-key
-          sap.cloud.service: com.jdc.sap.zcom_mtnregtol4volmtch
+          sap.cloud.service: com.jdc-group.sap.zcom_mtnregtol4volmtch
         - Authentication: OAuth2UserTokenExchange
           Name: zfemtnregtol4volmtch_uaa
           ServiceInstanceName: zfemtnregtol4volmtch-xsuaa-srv
           ServiceKeyName: zfemtnregtol4volmtch-uaa-key
-          sap.cloud.service: com.jdc.sap.zcom_mtnregtol4volmtch
+          sap.cloud.service: com.jdc-group.sap.zcom_mtnregtol4volmtch
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true

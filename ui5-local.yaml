@@ -40,8 +40,9 @@ server:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /service
-            url: https://jdc-inc-dev-appdev-zcom-mstrsrv-srv.cfapps.us10.hana.ondemand.com
-            destination: RegulationComplianceMasterServiceNew
+            url: https://csi-it--llc---d-b-a-jdc-group-consulting-solutions--llc-jdc-group-d4e860e96.cfapps.us10-001.hana.ondemand.com/
+            destination: RegulationComplianceMasterService
+            authenticationType: OAuth2UserTokenExchange
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:

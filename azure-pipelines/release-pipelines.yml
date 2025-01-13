@@ -8,7 +8,7 @@ resources:
     - repository: snyk
       type: git
       ref: main
-      name: jdc\jdc-snyk
+      name: jdc-group\jdc-group-snyk
 variables:
 - group: CFDeploy
 - group: Snyk

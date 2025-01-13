@@ -5,7 +5,7 @@
     {
       "source": "^/service/(.*)$",
       "target": "/service/$1",
-      "destination": "RegulationComplianceMasterServiceUserToken",
+      "destination": "RegulationComplianceMasterService",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },

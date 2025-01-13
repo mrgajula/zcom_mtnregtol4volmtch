@@ -8,7 +8,7 @@ resources:
     - repository: snyk
       type: git
       ref: main
-      name: jdc\jdc-snyk
+      name: jdc-group\jdc-group-snyk
 variables:
 - group: CFDeploy
 - group: Snyk
@@ -63,5 +63,5 @@ stages:
           - download: current
             artifact: WebApp
           - bash: |
-              cf login --origin jdc_Global-platform -u "$(CF-USER)" -p "$(CF-PASSWORD)" -a "$(CF-API)" -o "$(CF-ORG)" -s "$(CF-SPACE)"
+              cf login --origin jdc-group_Global-platform -u "$(CF-USER)" -p "$(CF-PASSWORD)" -a "$(CF-API)" -o "$(CF-ORG)" -s "$(CF-SPACE)"
               cf deploy $(Pipeline.Workspace)/WebApp/*.mtar -f

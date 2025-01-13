@@ -192,6 +192,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "com.jdc.sap.zcom_mtnregtol4volmtch"
+    "service": "com.jdc-group.sap.zcom_mtnregtol4volmtch"
   }
 }

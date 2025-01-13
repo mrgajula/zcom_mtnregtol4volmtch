@@ -176,6 +176,10 @@
                     <NavigationPropertyBinding Path="SiblingEntity" Target="EMTSMatchField"/>
                 </EntitySet>
                 <EntitySet Name="EMTSBuyOrSellReasonCode" EntityType="RegulationComplianceMasterService.EMTSBuyOrSellReasonCode"/>
+                <EntitySet Name="MaintainNotificationsConfiguration" EntityType="RegulationComplianceMasterService.MaintainNotificationsConfiguration">
+                    <NavigationPropertyBinding Path="notificationType" Target="NotificationType"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="MaintainNotificationsConfiguration"/>
+                </EntitySet>
                 <EntitySet Name="MaintainInventoryCostCenter" EntityType="RegulationComplianceMasterService.MaintainInventoryCostCenter">
                     <NavigationPropertyBinding Path="regulationType" Target="MaintainRegulationType"/>
                     <NavigationPropertyBinding Path="SiblingEntity" Target="MaintainInventoryCostCenter"/>
@@ -236,9 +240,14 @@
                 </EntitySet>
                 <EntitySet Name="RFS2DebitType" EntityType="RegulationComplianceMasterService.RFS2DebitType"/>
                 <EntitySet Name="ActionInventory" EntityType="RegulationComplianceMasterService.ActionInventory"/>
+                <EntitySet Name="NotificationType" EntityType="RegulationComplianceMasterService.NotificationType">
+                    <NavigationPropertyBinding Path="texts" Target="NotificationType_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="NotificationType_texts"/>
+                </EntitySet>
                 <EntitySet Name="Countries_texts" EntityType="RegulationComplianceMasterService.Countries_texts"/>
                 <EntitySet Name="ObjectType_texts" EntityType="RegulationComplianceMasterService.ObjectType_texts"/>
                 <EntitySet Name="Mode_texts" EntityType="RegulationComplianceMasterService.Mode_texts"/>
+                <EntitySet Name="NotificationType_texts" EntityType="RegulationComplianceMasterService.NotificationType_texts"/>
                 <ActionImport Name="getNextRenewableId" Action="RegulationComplianceMasterService.getNextRenewableId"/>
                 <ActionImport Name="getNextRetirementId" Action="RegulationComplianceMasterService.getNextRetirementId"/>
                 <ActionImport Name="getNextReconciliationGroupId" Action="RegulationComplianceMasterService.getNextReconciliationGroupId"/>
@@ -279,7 +288,7 @@
                     <ReferentialConstraint Property="regulationUoM_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="regulationUoM_category" Type="Edm.String" MaxLength="3"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -297,7 +306,7 @@
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="transactionType" Type="Edm.String" MaxLength="5" Nullable="false"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -326,7 +335,7 @@
                     <ReferentialConstraint Property="transactionCategory_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="transactionCategory_category" Type="Edm.String" MaxLength="4"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -351,7 +360,7 @@
                     <ReferentialConstraint Property="fuelSubType_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="fuelSubType_category" Type="Edm.String" MaxLength="3"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -381,7 +390,7 @@
                 </NavigationProperty>
                 <Property Name="objectCategory_category" Type="Edm.String" MaxLength="3"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -402,7 +411,7 @@
                 <NavigationProperty Name="manageRegulationTypeAndActive" Type="Collection(RegulationComplianceMasterService.ManageRegulationTypeAndActive)" Partner="regulationGroup">
                     <OnDelete Action="Cascade"/>
                 </NavigationProperty>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -423,7 +432,7 @@
                 <NavigationProperty Name="manageRegulationTypeAndObjectCategory" Type="Collection(RegulationComplianceMasterService.ManageRegulationTypeAndObjectCategory)" Partner="regulationMaterialGroup">
                     <OnDelete Action="Cascade"/>
                 </NavigationProperty>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -441,8 +450,9 @@
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="reasonCode" Type="Edm.String" MaxLength="3" Nullable="false"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="skipInventoryPostiong" Type="Edm.Boolean" DefaultValue="false"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="skipInventoryPosting" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="skipEMTSMatching" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -466,7 +476,7 @@
                 <Property Name="companyId" Type="Edm.String" MaxLength="5"/>
                 <Property Name="plant" Type="Edm.String" MaxLength="5"/>
                 <Property Name="storageLocation" Type="Edm.String" MaxLength="4"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -475,9 +485,11 @@
             </EntityType>
             <EntityType Name="MaintainIncotermsImpact">
                 <Key>
+                    <PropertyRef Name="ID"/>
                     <PropertyRef Name="incoTerm"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -487,7 +499,7 @@
                     <ReferentialConstraint Property="impact_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="impact_category" Type="Edm.String" MaxLength="2"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -513,7 +525,7 @@
                 </NavigationProperty>
                 <Property Name="dCode_category" Type="Edm.String" MaxLength="3" Nullable="false"/>
                 <Property Name="numberOfDays" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -539,7 +551,7 @@
                 </NavigationProperty>
                 <Property Name="dCode_category" Type="Edm.String" MaxLength="3" Nullable="false"/>
                 <Property Name="rangeInUnits" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -576,7 +588,7 @@
                     <ReferentialConstraint Property="passRetainIndicator_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="passRetainIndicator_category" Type="Edm.String" MaxLength="6"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -619,7 +631,7 @@
                 <Property Name="sourceScenario_category" Type="Edm.String" MaxLength="5"/>
                 <Property Name="negativeImpact" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="withReference" Type="Edm.Boolean" DefaultValue="false"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -664,7 +676,7 @@
                     <ReferentialConstraint Property="impact_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="impact_category" Type="Edm.String" MaxLength="2"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -706,7 +718,7 @@
                 <Property Name="obligationPercent" Type="Edm.Decimal" Precision="16" Scale="3"/>
                 <Property Name="rinMultiplier" Type="Edm.Decimal" Precision="5" Scale="3"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -725,7 +737,7 @@
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="companyId" Type="Edm.String" MaxLength="5"/>
                 <Property Name="plant" Type="Edm.String" MaxLength="5"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -759,7 +771,7 @@
                 </NavigationProperty>
                 <Property Name="regulationSubScenario_category" Type="Edm.String" MaxLength="20"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -784,7 +796,7 @@
                     <ReferentialConstraint Property="action_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="action_category" Type="Edm.String" MaxLength="10"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -806,7 +818,7 @@
                     <ReferentialConstraint Property="regulationGroup_regulationGroup" ReferencedProperty="regulationGroup"/>
                 </NavigationProperty>
                 <Property Name="regulationGroup_regulationGroup" Type="Edm.String" MaxLength="5"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -831,7 +843,7 @@
                     <ReferentialConstraint Property="regulationMaterialGroup_regulationMaterialGroup" ReferencedProperty="regulationMaterialGroup"/>
                 </NavigationProperty>
                 <Property Name="regulationMaterialGroup_regulationMaterialGroup" Type="Edm.String" MaxLength="5"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -853,7 +865,7 @@
                 <Property Name="regulationSubScenario_category" Type="Edm.String" MaxLength="20"/>
                 <Property Name="inActive" Type="Edm.Boolean"/>
                 <Property Name="currentSeqence" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
             </EntityType>
             <EntityType Name="ProcessingStatus">
                 <Key>
@@ -888,7 +900,7 @@
                     <ReferentialConstraint Property="nextStatus_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="nextStatus_category" Type="Edm.String" MaxLength="3"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -927,7 +939,7 @@
                     <ReferentialConstraint Property="regulationType_regulationType" ReferencedProperty="regulationType"/>
                 </NavigationProperty>
                 <Property Name="regulationType_regulationType" Type="Edm.String" MaxLength="5"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -944,7 +956,7 @@
                 <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
-                <Property Name="businessPatnerID" Type="Edm.String" MaxLength="2"/>
+                <Property Name="businessPatnerID" Type="Edm.String" MaxLength="10"/>
                 <Property Name="priority" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="epaId" Type="Edm.String" MaxLength="4"/>
                 <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
@@ -968,7 +980,7 @@
                 <Property Name="companyId" Type="Edm.String" MaxLength="5"/>
                 <Property Name="plant" Type="Edm.String" MaxLength="5"/>
                 <Property Name="facilityId" Type="Edm.String" MaxLength="5"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -990,7 +1002,7 @@
                 <Property Name="epaId" Type="Edm.String" MaxLength="4"/>
                 <Property Name="defaultOrg" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="description" Type="Edm.String" MaxLength="50"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1071,8 +1083,9 @@
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="fieldName" Type="Edm.String" MaxLength="70" Nullable="false"/>
-                <Property Name="required" Type="Edm.Boolean" DefaultValue="false"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="rfrin" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="otc" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1085,6 +1098,28 @@
                 </Key>
                 <Property Name="category" Type="Edm.String" MaxLength="3" Nullable="false"/>
                 <Property Name="description" Type="Edm.String" MaxLength="150"/>
+            </EntityType>
+            <EntityType Name="MaintainNotificationsConfiguration">
+                <Key>
+                    <PropertyRef Name="notificationType_code"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="notificationType" Type="RegulationComplianceMasterService.NotificationType">
+                    <ReferentialConstraint Property="notificationType_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="notificationType_code" Type="Edm.String" Nullable="false"/>
+                <Property Name="notificationTypeStatus" Type="Edm.Boolean" DefaultValue="true"/>
+                <Property Name="recipients" Type="Edm.String"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="RegulationComplianceMasterService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
             </EntityType>
             <EntityType Name="MaintainInventoryCostCenter">
                 <Key>
@@ -1101,7 +1136,7 @@
                 </NavigationProperty>
                 <Property Name="regulationType_regulationType" Type="Edm.String" MaxLength="5"/>
                 <Property Name="costCenter" Type="Edm.String" MaxLength="8"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1129,7 +1164,7 @@
                 <Property Name="deliveryGroup" Type="Edm.String" MaxLength="3"/>
                 <Property Name="shippingPoint" Type="Edm.String" MaxLength="4"/>
                 <Property Name="SalesOrderItemCategory" Type="Edm.String" MaxLength="4"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1178,7 +1213,7 @@
                 <Property Name="numberOfEnd" Type="Edm.String"/>
                 <Property Name="status" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="currentSeqence" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1203,7 +1238,7 @@
                 <Property Name="numberOfEnd" Type="Edm.String"/>
                 <Property Name="status" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="currentSeqence" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1228,7 +1263,7 @@
                 <Property Name="numberOfEnd" Type="Edm.String"/>
                 <Property Name="status" Type="Edm.Boolean" DefaultValue="false"/>
                 <Property Name="currentSeqence" Type="Edm.String"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1238,7 +1273,7 @@
             <EntityType Name="MaintainTransactionTypeRelationship">
                 <Property Name="transactionType" Type="Edm.String" MaxLength="5"/>
                 <Property Name="emtsTransactionTypeCode" Type="Edm.String" MaxLength="2"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
             </EntityType>
             <EntityType Name="MaintainRVOTypeToRINTypeMapping">
                 <Key>
@@ -1262,7 +1297,7 @@
                     <ReferentialConstraint Property="rinType_category" ReferencedProperty="category"/>
                 </NavigationProperty>
                 <Property Name="rinType_category" Type="Edm.String" MaxLength="3"/>
-                <Property Name="tenantId" Type="Edm.String" MaxLength="10" DefaultValue="Energy"/>
+                <Property Name="tenantId" Type="Edm.String" MaxLength="10"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
@@ -1409,6 +1444,20 @@
                 <Property Name="category" Type="Edm.String" MaxLength="10" Nullable="false"/>
                 <Property Name="description" Type="Edm.String" MaxLength="150"/>
             </EntityType>
+            <EntityType Name="NotificationType">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(RegulationComplianceMasterService.NotificationType_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="RegulationComplianceMasterService.NotificationType_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
             <EntityType Name="DraftAdministrativeData">
                 <Key>
                     <PropertyRef Name="DraftUUID"/>
@@ -1451,6 +1500,16 @@
                 <Property Name="name" Type="Edm.String" MaxLength="255"/>
                 <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
                 <Property Name="code" Type="Edm.String" MaxLength="1" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="NotificationType_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" Nullable="false"/>
             </EntityType>
             <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
                 <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainRegulationType"/>
@@ -1588,6 +1647,11 @@
                 <ReturnType Type="RegulationComplianceMasterService.EMTSMatchField"/>
             </Action>
             <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
                 <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainInventoryCostCenter"/>
                 <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
                 <ReturnType Type="RegulationComplianceMasterService.MaintainInventoryCostCenter"/>
@@ -1718,6 +1782,10 @@
                 <ReturnType Type="RegulationComplianceMasterService.EMTSMatchField"/>
             </Action>
             <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
+                <ReturnType Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
                 <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainInventoryCostCenter"/>
                 <ReturnType Type="RegulationComplianceMasterService.MaintainInventoryCostCenter"/>
             </Action>
@@ -1865,6 +1933,11 @@
                 <Parameter Name="in" Type="RegulationComplianceMasterService.EMTSMatchField"/>
                 <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
                 <ReturnType Type="RegulationComplianceMasterService.EMTSMatchField"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="RegulationComplianceMasterService.MaintainNotificationsConfiguration"/>
             </Action>
             <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
                 <Parameter Name="in" Type="RegulationComplianceMasterService.MaintainInventoryCostCenter"/>
@@ -2194,9 +2267,6 @@
                 </Annotation>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationType/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationType/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -2285,9 +2355,6 @@
             <Annotations Target="RegulationComplianceMasterService.MaintainTransactionType/description">
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainTransactionType/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainTransactionType/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -2466,9 +2533,6 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationTransactionType/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationTransactionType/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -2697,9 +2761,6 @@
                 </Annotation>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainFuelMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainFuelMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -2889,9 +2950,6 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationObjectType/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationObjectType/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -3033,9 +3091,6 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationGroup/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationGroup/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -3171,9 +3226,6 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationMaterialGroup/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationMaterialGroup/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -3198,7 +3250,10 @@
                                     <PropertyValue Property="Value" Path="description"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="skipInventoryPostiong"/>
+                                    <PropertyValue Property="Value" Path="skipInventoryPosting"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="skipEMTSMatching"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3222,7 +3277,10 @@
                             <PropertyValue Property="Value" Path="description"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="skipInventoryPostiong"/>
+                            <PropertyValue Property="Value" Path="skipInventoryPosting"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="skipEMTSMatching"/>
                         </Record>
                     </Collection>
                 </Annotation>
@@ -3280,11 +3338,11 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainAdjustmentReasonCode/skipInventoryPostiong">
-                <Annotation Term="Common.Label" String="Skip Inventory Postiong"/>
+            <Annotations Target="RegulationComplianceMasterService.MaintainAdjustmentReasonCode/skipInventoryPosting">
+                <Annotation Term="Common.Label" String="Skip Inventory Posting"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainAdjustmentReasonCode/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
+            <Annotations Target="RegulationComplianceMasterService.MaintainAdjustmentReasonCode/skipEMTSMatching">
+                <Annotation Term="Common.Label" String="Skip EMTS Matching"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainAdjustmentReasonCode/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -3437,9 +3495,6 @@
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
                 <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainInventoryPostingPlant/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainInventoryPostingPlant/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -3507,6 +3562,9 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainIncotermsImpact/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainIncotermsImpact/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Immutable" Bool="true"/>
@@ -3559,9 +3617,6 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainIncotermsImpact/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainIncotermsImpact/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -3728,9 +3783,6 @@
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainAutoMatchDateTolerance/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainAutoMatchDateTolerance/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -3900,9 +3952,6 @@
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainAutoMatchQualityTolerance/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainAutoMatchQualityTolerance/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -4140,9 +4189,6 @@
                     </Record>
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainTransactionTypeImpact/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainTransactionTypeImpact/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -4436,9 +4482,6 @@
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSubScenarioMovementTypeRelevancy/withReference">
                 <Annotation Term="Common.Label" String="With Reference"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainSubScenarioMovementTypeRelevancy/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSubScenarioMovementTypeRelevancy/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -4746,9 +4789,6 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainMovementTypeToTransactionCategoryMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainMovementTypeToTransactionCategoryMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -5072,9 +5112,6 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRFS2RegulationMaterial/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRFS2RegulationMaterial/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -5178,9 +5215,6 @@
                 <Annotation Term="Common.Label" String="Plant"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
                 <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainCompanyCodePlantMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainCompanyCodePlantMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -5403,9 +5437,6 @@
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRegulationSubScenarioToScenarioAssignment/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRegulationSubScenarioToScenarioAssignment/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -5548,9 +5579,6 @@
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainActionSubScenarioMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainActionSubScenarioMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -5617,9 +5645,6 @@
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.ManageRegulationTypeAndActive/active">
                 <Annotation Term="Common.Label" String="Active"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.ManageRegulationTypeAndActive/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.ManageRegulationTypeAndActive/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -5707,9 +5732,6 @@
                 </Annotation>
                 <Annotation Term="Common.Text" Path="objectCategory/description"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.ManageRegulationTypeAndObjectCategory/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.ManageRegulationTypeAndObjectCategory/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -5752,9 +5774,6 @@
             <Annotations Target="RegulationComplianceMasterService.MaintainRenewableNumberRangeSequence/currentSeqence">
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRenewableNumberRangeSequence/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.EntityContainer/ProcessingStatus">
                 <Annotation Term="Capabilities.DeleteRestrictions">
@@ -5962,9 +5981,6 @@
                     </Record>
                 </Annotation>
                 <Annotation Term="Common.Text" Path="nextStatus/description"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainActionStatusMatrixMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainActionStatusMatrixMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -6197,9 +6213,6 @@
                 </Annotation>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainMovementTypeRelevancy/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainMovementTypeRelevancy/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -6329,7 +6342,7 @@
             <Annotations Target="RegulationComplianceMasterService.MaintainBusinessPartnerEPAIDMapping/tenantId">
                 <Annotation Term="Common.Label" String="Tenant ID"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
+                <Annotation Term="Validation.Pattern" String="^[a-zA-Z]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainBusinessPartnerEPAIDMapping/description">
                 <Annotation Term="Common.Label" String="Description"/>
@@ -6382,9 +6395,6 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Core.Description" String="User's unique ID"/>
                 <Annotation Term="Common.Label" String="Changed By"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainCompanyIdOrPlantToFacilityIdMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainCompanyIdOrPlantToFacilityIdMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -6518,9 +6528,6 @@
             <Annotations Target="RegulationComplianceMasterService.MaintainPlantEPAIDMapping/description">
                 <Annotation Term="Common.Label" String="Description"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainPlantEPAIDMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainPlantEPAIDMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -6768,12 +6775,13 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="fieldName"/>
                                     <PropertyValue Property="Value" Path="fieldName"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="required"/>
-                                    <PropertyValue Property="Value" Path="required"/>
+                                    <PropertyValue Property="Value" Path="rfrin"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="otc"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -6791,12 +6799,13 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="fieldName"/>
                             <PropertyValue Property="Value" Path="fieldName"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="required"/>
-                            <PropertyValue Property="Value" Path="required"/>
+                            <PropertyValue Property="Value" Path="rfrin"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="otc"/>
                         </Record>
                     </Collection>
                 </Annotation>
@@ -6837,11 +6846,11 @@
             <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/fieldName">
                 <Annotation Term="Common.Label" String="Field Name"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/required">
-                <Annotation Term="Common.Label" String="Required"/>
+            <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/rfrin">
+                <Annotation Term="Common.Label" String="RF RIN Required"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
+            <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/otc">
+                <Annotation Term="Common.Label" String="OTC Required"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.EMTSMatchField/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -6877,6 +6886,145 @@
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.EMTSBuyOrSellReasonCode/description">
                 <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration">
+                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Notification Type"/>
+                                    <PropertyValue Property="Value" Path="notificationType_code"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="notificationTypeStatus"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="recipients"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="tenantId"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Notification Type"/>
+                            <PropertyValue Property="Value" Path="notificationType_code"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="notificationTypeStatus"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="recipients"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="tenantId"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="notificationType/name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeName" String=""/>
+                        <PropertyValue Property="TypeNamePlural" String=""/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.EntityContainer/MaintainNotificationsConfiguration">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="RegulationComplianceMasterService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="RegulationComplianceMasterService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="RegulationComplianceMasterService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/notificationType">
+                <Annotation Term="Common.Label" String="Notification Type"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/notificationType_code">
+                <Annotation Term="Common.Label" String="Notification Type"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="NotificationType"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="notificationType_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="descr"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Label" String="Notification Type"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/notificationTypeStatus">
+                <Annotation Term="Common.Label" String="Notification Type Status"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/recipients">
+                <Annotation Term="Common.Label" String="Recipents"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/tenantId">
+                <Annotation Term="Common.Label" String="Tenant ID"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.MaintainNotificationsConfiguration/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainInventoryCostCenter">
                 <Annotation Term="UI.LineItem">
@@ -6996,9 +7144,6 @@
             <Annotations Target="RegulationComplianceMasterService.MaintainInventoryCostCenter/costCenter">
                 <Annotation Term="Common.Label" String="Cost Center"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainInventoryCostCenter/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainInventoryCostCenter/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -7177,27 +7322,31 @@
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/salesOrderType">
                 <Annotation Term="Common.Label" String="salesOrderType"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/salesOrganization">
                 <Annotation Term="Common.Label" String="salesOrganization"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/distributionChannel">
                 <Annotation Term="Common.Label" String="distributionChannel"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/organizationDivision">
                 <Annotation Term="Common.Label" String="organizationDivision"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/deliveryGroup">
                 <Annotation Term="Common.Label" String="deliveryGroup"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/shippingPoint">
                 <Annotation Term="Common.Label" String="shippingPoint"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/SalesOrderItemCategory">
                 <Annotation Term="Common.Label" String="SalesOrderItemCategory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
+                <Annotation Term="Validation.Pattern" String="^[A-Z0-9]+$"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainSalesConfiguration/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -7397,9 +7546,6 @@
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRenewableNumberRange/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRenewableNumberRange/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -7569,9 +7715,6 @@
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainReconciliationNumberRange/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainReconciliationNumberRange/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -7738,9 +7881,6 @@
                 <Annotation Term="Validation.Minimum" Int="0"/>
                 <Annotation Term="Validation.Maximum" Int="2147483647"/>
             </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainNumberRangeForRetirement/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
-            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainNumberRangeForRetirement/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -7752,9 +7892,6 @@
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainNumberRangeForRetirement/DraftAdministrativeData">
                 <Annotation Term="UI.Hidden" Bool="true"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainTransactionTypeRelationship/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRVOTypeToRINTypeMapping">
                 <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup">
@@ -7931,9 +8068,6 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
-            <Annotations Target="RegulationComplianceMasterService.MaintainRVOTypeToRINTypeMapping/tenantId">
-                <Annotation Term="Common.Label" String="Tenant ID"/>
             </Annotations>
             <Annotations Target="RegulationComplianceMasterService.MaintainRVOTypeToRINTypeMapping/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
@@ -8356,6 +8490,51 @@
             <Annotations Target="RegulationComplianceMasterService.ActionInventory/description">
                 <Annotation Term="Common.Label" String="Description"/>
             </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType/code">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type1"/>
+                            <PropertyValue Property="Value" String="NEAR-RINEXPIRYTRADE"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type2"/>
+                            <PropertyValue Property="Value" String="EMTS-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type3"/>
+                            <PropertyValue Property="Value" String="RIN-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type4"/>
+                            <PropertyValue Property="Value" String="RVO-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type5"/>
+                            <PropertyValue Property="Value" String="RIN-EXPIREDTRADE"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type6"/>
+                            <PropertyValue Property="Value" String="RIN-RF-ERROR"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
             <Annotations Target="RegulationComplianceMasterService.DraftAdministrativeData">
                 <Annotation Term="Common.Label" String="Draft Administrative Data"/>
             </Annotations>
@@ -8442,6 +8621,45 @@
                         <Record Type="Validation.AllowedValue">
                             <Annotation Term="Core.SymbolicName" String="Export"/>
                             <PropertyValue Property="Value" String="E"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="RegulationComplianceMasterService.NotificationType_texts/code">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type1"/>
+                            <PropertyValue Property="Value" String="NEAR-RINEXPIRYTRADE"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type2"/>
+                            <PropertyValue Property="Value" String="EMTS-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type3"/>
+                            <PropertyValue Property="Value" String="RIN-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type4"/>
+                            <PropertyValue Property="Value" String="RVO-ERROR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type5"/>
+                            <PropertyValue Property="Value" String="RIN-EXPIREDTRADE"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Type6"/>
+                            <PropertyValue Property="Value" String="RIN-RF-ERROR"/>
                         </Record>
                     </Collection>
                 </Annotation>
